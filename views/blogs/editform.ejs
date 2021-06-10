@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= data %> </title>
+</head>
+<body>
+    <% include ../layout %> 
+    <div class="container">
+       <h1><%= data %> </h1>
+       <% if (locals.errors) { %>
+            <ul class="alert alert-danger" role="alert">
+                <% Object.values(errors).forEach(error => { %>
+                    <li><%= error.msg %> </li>
+                <% }) %>
+            </ul>
+        <% } %>
+       <form action="/blogs/update" method="post">
+           <div class="mb-3">
+                <label for="title">ชื่อเรื่อง</label>
+                <input type="text" class="form-control" name="title" id="" value="<%= blog.title %>">
+           </div>
+           <div class="mb-3">
+               <label for="">หมวดหมู่</label>
+               <select name="category" id="" class="form-select">
+                   <option selected value=""></option>
+                   <option value="travel" 
+                   <% if (blog.category == 'travel') { %>
+                        selected
+                   <% } %>>ท่องเที่ยว</option>
+                   <option value="lifestyle" 
+                   <% if (blog.category == 'lifestyle') { %>
+                        selected
+                   <% } %>>ชีวิตประจำวัน</option>
+                   <option value="review"
+                   <% if (blog.category == 'review') { %>
+                        selected
+                   <% } %>
+                   >รีวิว</option>
+               </select>
+           </div>
+           <div class="mb-3">
+               <label for="description">รายละเอียด</label>
+               <textarea name="description" class="form-control" id="" cols="30" rows="8"><%= blog.description %></textarea>
+           </div>
+           <div class="mb-3">
+               <label for="author">ผู้เขียน</label>
+               <input type="text" name="author" class="form-control" id="" value="<%= blog.author %> ">
+           </div>
+           <input type="submit" value="บันทึก" class="btn btn-success">
+           <a href="/blogs" class="btn btn-danger">ยกเลิก</a>
+           <input type="hidden" name="id" value="<%= blog._id %>">
+       </form>
+    </div>
+    
+</body>
+</html>
